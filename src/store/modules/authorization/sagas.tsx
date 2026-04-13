@@ -1,6 +1,7 @@
 import { call, put, all, takeLatest } from "redux-saga/effects";
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { SagaIterator } from 'redux-saga';
+import { toast } from "react-toastify"
 
 import * as actions from "./actions";
 import * as types from "../types";
@@ -30,14 +31,15 @@ interface LoginPayload {
 }
 
 function* loginRequest({ payload }: PayloadAction<LoginPayload>): SagaIterator {
+    console.log(payload)
     try {
         const { data } = yield call(axiosService.post, endPoints.login, payload);
         yield put(actions.loginSuccess({ ...data }));
 
         axiosService.defaults.headers.Authorization = `Bearer ${data.token}`;
     } catch (e) {
-        console.log(e);
         yield put(actions.loginFailure({}));
+        toast.error("Usuário ou senha inválidos.");
     }
 }
 

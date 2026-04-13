@@ -21,7 +21,8 @@ function LoginUsuario() {
     const location = useLocation();
     const path = location.state?.from;
     const { isLoggedIn } = useSelector((state: RootState) => state.authorization)
-    const [loading, setLoading] = useState<boolean>(false);
+    const { notLogin } = useSelector((state: RootState) => state.authorization)
+    const [loading, setLoading] = useState<boolean>(false); 
 
     useEffect(() => {
         if (location.state?.trocouEmail && (path === rotas.EditarUsario)) {
@@ -42,6 +43,12 @@ function LoginUsuario() {
             });
         }
     }, [isLoggedIn])
+
+    useEffect(() => {
+        if(notLogin){
+            setLoading(false);
+        }
+    }, [notLogin])
 
     const openNotificationWithIcon = (type: NotificationType, title: String, msg: String,) => {
         api[type]({
