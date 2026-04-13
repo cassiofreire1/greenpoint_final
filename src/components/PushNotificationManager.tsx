@@ -16,22 +16,26 @@ export function PushNotificationManager() {
 
   if (!isSupported) {
     return (
-      <Alert
-        type="warning"
-        message="Push notifications não são suportadas neste navegador."
-        showIcon
-      />
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <Alert
+          type="warning"
+          message="Push notifications não são suportadas neste navegador."
+          showIcon
+        />
+      </div>
     );
   }
 
   if (permission === "denied") {
     return (
-      <Alert
-        type="error"
-        message="Notificações bloqueadas"
-        description="Habilite as notificações nas configurações do navegador e do sistema operacional."
-        showIcon
-      />
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <Alert
+          type="error"
+          message="Notificações bloqueadas"
+          description="Habilite as notificações nas configurações do navegador e do sistema operacional."
+          showIcon
+        />
+      </div>
     );
   }
 
@@ -71,27 +75,54 @@ export function PushNotificationManager() {
   };
 
   return (
-    <div style={{ marginTop: 20 }}>
-      <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+    <div
+      style={{
+        marginTop: 20,
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Space
+        direction="vertical"
+        size="middle"
+        align="center"
+        style={{
+          textAlign: "center",
+        }}
+      >
         {subscription ? (
           <>
             <Text strong>Push notifications ativadas.</Text>
 
-            <Space wrap>
-              <Button onClick={handleTestPush} loading={isLoading} type="primary">
+            <Space wrap style={{ justifyContent: "center" }}>
+              <Button
+                onClick={handleTestPush}
+                loading={isLoading}
+                type="primary"
+              >
                 Enviar push de teste
               </Button>
 
-              <Button onClick={handleUnsubscribe} loading={isLoading}>
+              <Button
+                onClick={handleUnsubscribe}
+                loading={isLoading}
+              >
                 Desativar notificações
               </Button>
             </Space>
           </>
         ) : (
           <>
-            <Paragraph>Receba notificações desta aplicação.</Paragraph>
+            <Paragraph style={{ marginBottom: 0 }}>
+              Receba notificações desta aplicação.
+            </Paragraph>
 
-            <Button onClick={handleSubscribe} loading={isLoading} type="primary">
+            <Button
+              onClick={handleSubscribe}
+              loading={isLoading}
+              type="primary"
+            >
               Ativar notificações push
             </Button>
           </>

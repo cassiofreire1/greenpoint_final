@@ -42,13 +42,7 @@ function NavMenu() {
         setOpen(false);
     }
 
-    const handleClickCalendario = (e: any) => {
-        e.preventDefault();
-        navigate(rotas.CadastroCalendario, {
-            state: { from: location.pathname }
-        });
-        closeDrawer();
-    }
+    
     const handleClickPontosColetas = (e: any) => {
         e.preventDefault();
         navigate(rotas.PontoColeta, {
@@ -130,13 +124,7 @@ function NavMenu() {
                                 }}>Perfil</Button>
                             {user.tipo === TiposUsuarios.Admin && (
                                 <>
-                                    <Button type="link"
-                                        onClick={handleClickCalendario}
-                                        style={{
-                                            color: "black",
-                                            fontSize: "20px"
-                                        }}> Calendario
-                                    </Button>
+                            
                                     <Button
                                         type="link"
                                         onClick={handleClickPontosColetas}
