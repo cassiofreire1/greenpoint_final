@@ -13,7 +13,7 @@ interface AuthInitialState {
     isLoggedIn: boolean;
     token: string;
     user: User;
-    notLogin: boolean;
+    error: string;
     update: boolean;
 }
 
@@ -27,7 +27,7 @@ const initialState: AuthInitialState = {
         tipo: "",
         foto: null,
     },
-    notLogin: false,
+    error: "",
     update: false,
 };
 
@@ -40,20 +40,19 @@ export const reducerAuthrization = (
             return {
                 ...state,
                 isLoggedIn: true,
-                notLogin: false,
                 token: action.payload.token,
                 user: action.payload.user,
             };
         }
 
         case types.LOGIN_REQUEST: {
-            return { ...initialState };
+            return { ...initialState};
         }
 
         case types.LOGIN_FAILURE: {
             return {
                 ...initialState,
-                notLogin: true
+                error: action.payload.error,
             };
         }
 

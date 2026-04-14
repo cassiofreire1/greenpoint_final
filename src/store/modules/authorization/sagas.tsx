@@ -31,15 +31,16 @@ interface LoginPayload {
 }
 
 function* loginRequest({ payload }: PayloadAction<LoginPayload>): SagaIterator {
-    console.log(payload)
     try {
         const { data } = yield call(axiosService.post, endPoints.login, payload);
+
         yield put(actions.loginSuccess({ ...data }));
 
         axiosService.defaults.headers.Authorization = `Bearer ${data.token}`;
-    } catch (e) {
-        yield put(actions.loginFailure({}));
-        toast.error("Usuário ou senha inválidos.");
+    } catch (e: any) {
+        yield put(actions.loginFailure({
+            error: e.response?.data?.message || "Usuário ou senha inválidos"
+        }));
     }
 }
 
