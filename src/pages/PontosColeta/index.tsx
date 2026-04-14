@@ -172,7 +172,10 @@ export default function PontosColetaPage() {
                         padding: "16px",
                         maxWidth: "1200px",
                         margin: "0 auto",
+                        maxHeight: "100%", 
+                        overflowY: "auto",
                     }}>
+
                     <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
                         <Col>
                             <Title level={3}>Pontos de Coleta</Title>

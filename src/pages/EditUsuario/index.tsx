@@ -249,6 +249,8 @@ function CadastroUsuario() {
                 style={{
                     width: "90%",
                     maxWidth: "800px",
+                    maxHeight: "70vh",
+                    overflowY: "auto",
                     border: "1.5px solid #c4c4c4",
                     borderRadius: "10px",
                     padding: "20px",

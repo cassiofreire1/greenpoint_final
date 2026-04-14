@@ -119,9 +119,12 @@ function CadastroUsuario() {
                     width: "100%",
                     maxWidth: "900px",
                     margin: "0 auto",
-                    padding: "16px",
-                }}
-            >
+                    maxHeight: "100%",
+                    overflowY: "auto",
+                    border: "1.5px solid #c4c4c4",
+                    borderRadius: "10px",
+                    backgroundColor: "#f8f8f8",
+                }}>
                 <Card
                     style={{
                         borderRadius: "12px",

@@ -22,11 +22,10 @@ function App() {
 
           <Layout
             style={{
-              minHeight: "100vh",
+              height: "100vh",
               display: "flex",
-              flexDirection: "column"
-            }}
-          >
+              flexDirection: "column",
+            }}>
             <Header style={{ height: "80px", padding: 0 }}>
               <NavMenu />
             </Header>
@@ -36,10 +35,11 @@ function App() {
                 flex: 1,
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
                 justifyContent: "center",
-                padding: 0,
-                backgroundColor: "white"
+                alignItems: "center",
+                padding: "16px",
+                backgroundColor: "white",
+                overflow: "auto",
               }}
             >
               <AppRoutes />
@@ -53,7 +53,7 @@ function App() {
           <GlobalStyles />
         </BrowserRouter>
       </PersistGate>
-    </Provider>
+    </Provider >
   )
 }
 

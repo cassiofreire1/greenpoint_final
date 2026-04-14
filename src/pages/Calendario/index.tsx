@@ -467,17 +467,17 @@ function BuscarColeta() {
   return (
     <>
       {contextHolder}
-
       <Form
         style={{
           width: "90%",
           maxWidth: "800px",
+          maxHeight: "70vh",
+          overflowY: "auto",
           border: "1.5px solid #c4c4c4",
           borderRadius: "10px",
           padding: "20px",
           backgroundColor: "#f8f8f8",
-        }}
-      >
+        }}>
         <Form.Item>
           <Title style={{ textAlign: "center" }}>
             Consulte os dias da coleta
