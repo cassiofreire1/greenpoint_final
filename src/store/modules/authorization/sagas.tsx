@@ -1,7 +1,6 @@
 import { call, put, all, takeLatest } from "redux-saga/effects";
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { SagaIterator } from 'redux-saga';
-import { toast } from "react-toastify"
 
 import * as actions from "./actions";
 import * as types from "../types";
