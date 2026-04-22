@@ -46,16 +46,17 @@ export function usePushNotifications() {
           data: { session },
         } = await supabase.auth.getSession();
 
-        if (!session?.access_token) {
-          throw new Error("Usuário não autenticado.");
+        const headers: Record<string, string> = {
+          "Content-Type": "application/json",
+        };
+
+        if (session?.access_token) {
+          headers.Authorization = `Bearer ${session.access_token}`;
         }
 
         const response = await fetch(SAVE_SUBSCRIPTION_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session.access_token}`,
-          },
+          headers,
           body: JSON.stringify(sub.toJSON()),
         });
 
@@ -84,31 +85,50 @@ export function usePushNotifications() {
   }, []);
 
   const sendTestNotification = useCallback(async () => {
-    if (!subscription) {
-      throw new Error("Nenhuma subscription ativa.");
+    setIsLoading(true);
+
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      const currentSubscription =
+        (await registration.pushManager.getSubscription()) || subscription;
+
+      if (!currentSubscription) {
+        throw new Error("Nenhuma subscription ativa.");
+      }
+
+      const sendRequest = async () => {
+        const response = await fetch(SEND_NOTIFICATION_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subscription: currentSubscription.toJSON(),
+            title: "GreenPoint",
+            body: "Push notification real enviada com sucesso.",
+            url: "/",
+            icon: "/icons/icon-192.png",
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Erro ao enviar push de teste.");
+        }
+
+        return data;
+      };
+
+      try {
+        return await sendRequest();
+      } catch (error) {
+        await new Promise((resolve) => setTimeout(resolve, 1200));
+        return await sendRequest();
+      }
+    } finally {
+      setIsLoading(false);
     }
-
-    const response = await fetch(SEND_NOTIFICATION_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        subscription: subscription.toJSON(),
-        title: "GreenPoint",
-        body: "Push notification real enviada com sucesso.",
-        url: "/",
-        icon: "/icons/icon-192.png",
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || "Erro ao enviar push de teste.");
-    }
-
-    return data;
   }, [subscription]);
 
   return {
