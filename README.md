@@ -25,7 +25,7 @@ A proposta é oferecer uma solução prática e acessível para incentivar a rec
 ## 🌐 Acesse o projeto
 
 👉 **Link do sistema:**  
-🔗 https://SEU-LINK-VERCEL.vercel.app
+🔗 https://greenpoint-final.vercel.app/
 
 ---
 
